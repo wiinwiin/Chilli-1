@@ -167,3 +167,34 @@
     }
   });
 })();
+
+// Contact form basic submit handler
+(function() {
+  var contactForms = document.querySelectorAll('.contact-form');
+  contactForms.forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var valid = true;
+      form.querySelectorAll('[required]').forEach(function(field) {
+        if (!field.value.trim()) {
+          field.style.borderColor = 'var(--red)';
+          valid = false;
+        } else {
+          field.style.borderColor = '';
+        }
+      });
+      if (valid) {
+        var btn = form.querySelector('.form-submit');
+        if (btn) {
+          btn.textContent = 'Sending...';
+          btn.disabled = true;
+          setTimeout(function() {
+            btn.innerHTML = '&#10003; Message Sent! We\'ll be in touch within 4 hours.';
+            btn.style.background = '#28a745';
+            btn.style.borderColor = '#28a745';
+          }, 1200);
+        }
+      }
+    });
+  });
+})();
